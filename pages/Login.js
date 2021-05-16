@@ -1,9 +1,13 @@
 import Logo from "../Images/FacebookLogo.png";
 import Image from "next/image";
 import Head from "next/head";
-import { signIn } from "next-auth/client";
+import { db, auth, provider } from "../config/firebase";
 
 function Login() {
+  const signIn = () => {
+    auth.signInWithPopup(provider).catch((error) => alert(error.message));
+  };
+
   return (
     <div className="grid place-items-center bg-gray-100 h-screen">
       <Head>

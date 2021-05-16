@@ -7,9 +7,7 @@ import Feed from "../components/Feed";
 import Widget from "../components/Widget";
 import { db } from "../config/firebase";
 
-export default function Home({ session, posts }) {
-  if (!session) return <Login />;
-
+export default function Home({ posts }) {
   return (
     <div className="h-screen bg-gray-100 overflow-hidden">
       <Head>
@@ -28,8 +26,6 @@ export default function Home({ session, posts }) {
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
   const posts = await db.collection("posts").orderBy("timestamp", "desc").get();
 
   const docs = posts.docs.map((post) => ({
@@ -40,7 +36,6 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      session,
       posts: docs,
     },
   };

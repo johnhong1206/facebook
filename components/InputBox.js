@@ -3,11 +3,12 @@ import { useSession } from "next-auth/client";
 import { VideoCameraIcon, CameraIcon } from "@heroicons/react/solid";
 import { EmojiHappyIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
-import { db, storage } from "../config/firebase";
+import { auth, db, storage } from "../config/firebase";
 import firebase from "firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function InputBox() {
-  const [session, loading] = useSession();
+  const [user, loading] = useAuthState(auth);
   const inputRef = useRef(null);
   const imgPickerRef = useRef(null);
   const [imgToPost, setImgtoPost] = useState(null);
@@ -20,9 +21,9 @@ function InputBox() {
     db.collection("posts")
       .add({
         message: inputRef.current.value,
-        name: session.user.name,
-        email: session.user.email,
-        image: session.user.image,
+        name: user.displayName,
+        email: user.email,
+        image: user?.photoURL,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       })
       .then((doc) => {
@@ -80,7 +81,7 @@ function InputBox() {
       <div className="flex space-x-4 items-center p-4">
         <Image
           className="rounded-full"
-          src={session?.user.image}
+          src={user?.photoURL}
           width={40}
           height={40}
           layout="fixed"
@@ -90,7 +91,7 @@ function InputBox() {
             ref={inputRef}
             className=" rounded-full h-12 bg-gray-100 flex-grow px-5 focus:outline-none"
             type="text"
-            placeholder={`what's on your mind, ${session.user.name}`}
+            placeholder={`what's on your mind, ${user.displayName}`}
           />
           <button hidden onClick={sendPost}>
             Submit

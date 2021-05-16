@@ -9,6 +9,7 @@ module.exports = withImages({
       "platform-lookaside.fbsbx.com",
       "firebasestorage.googleapis.com",
       "platform-lookaside.fbsbx.com",
+      "lh3.googleusercontent.com",
     ],
   },
 });
