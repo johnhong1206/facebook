@@ -1,6 +1,7 @@
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../config/firebase";
-import Post from "./Post";
+import dynamic from "next/dynamic";
+const Post = dynamic(() => import("./Post"));
 
 function Posts({ posts }) {
   const [realTimePosts, loading, error] = useCollection(

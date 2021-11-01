@@ -1,10 +1,10 @@
 import Head from "next/head";
-import { getSession } from "next-auth/client";
-import Header from "../components/Header";
-import Login from "./Login";
-import Sidebar from "../components/Sidebar";
-import Feed from "../components/Feed";
-import Widget from "../components/Widget";
+import dynamic from "next/dynamic";
+const Header = dynamic(() => import("../components/Header"));
+const Sidebar = dynamic(() => import("../components/Sidebar"));
+const Feed = dynamic(() => import("../components/Feed"));
+const Widget = dynamic(() => import("../components/Widget"));
+
 import { db } from "../config/firebase";
 
 export default function Home({ posts }) {

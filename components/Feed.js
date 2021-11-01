@@ -1,6 +1,7 @@
-import InputBox from "./InputBox";
-import Posts from "./Posts";
-import Stories from "./Stories";
+import dynamic from "next/dynamic";
+const InputBox = dynamic(() => import("./InputBox"));
+const Posts = dynamic(() => import("./Posts"));
+const Stories = dynamic(() => import("./Stories"));
 
 function Feed({ posts }) {
   return (
