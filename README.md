@@ -1,6 +1,6 @@
 This is Facebook UI Clone
 
-This Project is built with NextJs,and Firebase
+This Project is built with NextJs,Tailwind CSS and Firebase
 
 
 ---Main Function---
